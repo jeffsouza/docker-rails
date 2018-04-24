@@ -23,12 +23,12 @@ services:
   
   app:
     build: .
-    entrypoint: [bin/run_migrate]
+    entrypoint: [/usr/bin/run_migrate]
     command: bin/rails server --port 3000 --binding 0.0.0.0
     links:
       - db
     volumes:
-      - ./app:/usr/src/app/rails-app
+      - ./app/rails-app:/usr/src/app/rails-app
     ports:
       - 3000
     depends_on:

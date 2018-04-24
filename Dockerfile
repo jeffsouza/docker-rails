@@ -6,7 +6,8 @@ RUN apt-get install -y libpq-dev
 
 RUN mkdir -p /usr/src/app
 ENV APP_HOME /usr/src/app/rails-app
-COPY app $APP_HOME
+COPY app/* $APP_HOME
+COPY bin/* /usr/bin
 WORKDIR $APP_HOME
 
 RUN bundle install
