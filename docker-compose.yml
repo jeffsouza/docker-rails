@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+  webserver:
+    build: ./nginx
+    ports:
+      - 80:80
+    links:
+      - app:app
+    depends_on:
+      - app
+  
+  db:
+    image: postgres:9.4.1
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-pass
+    secrets:
+      - db-pass
+    volumes:
+      - psql-data:/var/lib/postgresql/data
+  
+  app:
+    build: .
+    entrypoint: [docker/bin/entry]
+    command: bin/rails server --port 3000 --binding 0.0.0.0
+    links:
+      - db
+    volumes:
+      - ./app:/usr/src/app/rails-app
+    ports:
+      - 3000
+    depends_on:
+      - db
+
+volumes:
+  psql-data:
+
+secrets:
+  db-pass:
+    file: './docker/secrets/db-pass'
