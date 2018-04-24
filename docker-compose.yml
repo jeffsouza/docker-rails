@@ -20,10 +20,18 @@ services:
       - db-pass
     volumes:
       - psql-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin
+      PGADMIN_DEFAULT_PASSWORD: 123
   
   app:
     build: .
-    entrypoint: [/usr/bin/run_migrate]
+    entrypoint: [/usr/bin/remove_server_pid, /usr/bin/run_migrate]
     command: bin/rails server --port 3000 --binding 0.0.0.0
     links:
       - db
@@ -39,4 +47,4 @@ volumes:
 
 secrets:
   db-pass:
-    file: './docker/secrets/db-pass'
+    file: './secrets/db-pass'
