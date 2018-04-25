@@ -39,12 +39,13 @@ services:
     image: jeffdesouza/rails-prepare
     entrypoint:
       - /usr/bin/remove_server_pid
+      - /usr/bin/run_bundle_install
       - /usr/bin/run_migrate
     command: bin/rails server --port 3000 --binding 0.0.0.0
     links:
       - db
     volumes:
-      - ./rails-app:/usr/src/app/rails-app
+      - ./learn-rails:/usr/src/app/rails-app
     ports:
       - 3000
     depends_on:
