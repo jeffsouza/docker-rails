@@ -13,7 +13,7 @@ services:
   db:
     image: postgres:9.4.1
     ports:
-      - 5431:5432
+      - 5433:5432
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/db-pass
     secrets:
@@ -24,7 +24,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     ports:
-      - 8080:80
+      - 5050:80
     links:
       - db:db
     volumes:
@@ -36,16 +36,16 @@ services:
       - db
   
   app:
-    image: jeffdesouza/rails-prepare
+    build: .
     entrypoint:
+      - /usr/bin/change_app_root_directory
       - /usr/bin/remove_server_pid
-      - /usr/bin/run_bundle_install
       - /usr/bin/run_migrate
     command: bin/rails server --port 3000 --binding 0.0.0.0
     links:
       - db
     volumes:
-      - ./learn-rails:/usr/src/app/rails-app
+      - ./rails-app:/usr/src/app
     ports:
       - 3000
     depends_on:

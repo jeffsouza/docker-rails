@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+rm -fr /usr/src/app/rails-app
+cd /usr/src/app/*
+
+exec "$@"
