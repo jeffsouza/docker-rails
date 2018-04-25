@@ -2,18 +2,18 @@ version: '3.1'
 
 services:
   webserver:
-    build: ./nginx
+    image: jeffdesouza/rails-proxy
     ports:
       - 80:80
     links:
-      - app:app
+      - app
     depends_on:
       - app
   
   db:
     image: postgres:9.4.1
     ports:
-      - 5433:5432
+      - 5431:5432
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/db-pass
     secrets:
@@ -44,7 +44,7 @@ services:
     links:
       - db
     volumes:
-      - ./app/rails-app:/usr/src/app/rails-app
+      - ./rails-app:/usr/src/app/rails-app
     ports:
       - 3000
     depends_on:
@@ -56,4 +56,4 @@ volumes:
 
 secrets:
   db-pass:
-    file: './secrets/db-pass'
+    file: './docker/secrets/db-pass'
