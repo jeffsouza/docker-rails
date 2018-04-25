@@ -6,13 +6,13 @@ Dockerize a Rails application
 
 - Docker Images
 
-   - jeffdesouza/rails-proxy (latest)
-   - jeffdesouza/rails-prepare (latest)
+   - [jeffdesouza/rails-proxy (latest)](https://github.com/jeffsouza/docker-rails-proxy)
+   - [jeffdesouza/rails-prepare (latest)](https://github.com/jeffsouza/docker-rails-prepare)
     
 - Services
 
-   - Postgresql (9.4.1)
-   - Pgadmin4 (3+)
+   - PostgreSQL (9.4.1)
+   - pgAdmin4 (3+)
 
 ## Configuration
 
